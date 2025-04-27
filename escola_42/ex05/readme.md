@@ -7,124 +7,123 @@
 - **Diretório**: `ex05/`
 - **Protótipo**: `void ft_print_comb(void);`
 - **Funções permitidas**: `write`
-- **Descrição**: Criar uma função que exibe todas as diferentes combinações de três dígitos diferentes em ordem crescente.
 
-### Conceitos Teóricos
+### Enunciado
 
-Este exercício é mais complexo e introduz:
-- Loops aninhados
-- Condições mais elaboradas
-- Formação de combinações
+O objetivo deste exercício é criar uma função que imprima todas as combinações possíveis de três dígitos diferentes, usando apenas os números de 0 a 9. Essas combinações precisam obedecer à seguinte regra:
 
-Características importantes:
-- Os dígitos devem ser diferentes (012 é válido, 011 não é)
-- A ordem é crescente (012 é válido, 021 não é)
-- As combinações devem ser exibidas em ordem crescente (012, 013, 014...)
-- O output deve ser como mostrado no exemplo: "012, 013, 014, ..., 789"
+- Os três dígitos devem estar **em ordem crescente**. Por exemplo:
+  - "123" é válido (1 < 2 < 3).
+  - "321" não é válido (3 > 2).
 
-### Implementação Comentada
+- **Não pode haver repetição** de dígitos:
+  - "112" não é permitido.
+  - Cada dígito na combinação deve ser único.
 
-```c
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_print_comb.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: student <student@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/27 12:00:00 by student           #+#    #+#             */
-/*   Updated: 2025/04/27 12:00:00 by student           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+- Cada combinação impressa deve ser seguida por uma vírgula e um espaço (",") **exceto** depois da última combinação.
 
-#include <unistd.h>
+- O formato da saída deve ser uma sequência de combinações, como no exemplo abaixo:
 
-void	ft_print_comb(void)
-{
-	char	a;
-	char	b;
-	char	c;
-
-	a = '0';
-	while (a <= '7')
-	{
-		b = a + 1;
-		while (b <= '8')
-		{
-			c = b + 1;
-			while (c <= '9')
-			{
-				write(1, &a, 1);
-				write(1, &b, 1);
-				write(1, &c, 1);
-				if (!(a == '7' && b == '8' && c == '9'))
-					write(1, ", ", 2);
-				c++;
-			}
-			b++;
-		}
-		a++;
-	}
-}
-```
-
-### Explicação do Código
-
-1. **Definição das variáveis**:
-   - Criamos três variáveis do tipo `char`: `a`, `b` e `c` para representar cada dígito.
-
-2. **Loops aninhados**:
-   - Três loops aninhados, um para cada dígito.
-   - `a` vai de '0' a '7' (se `a` fosse '8' ou '9', não haveria dígitos suficientes para `b` e `c`).
-   - `b` começa em `a + 1` e vai até '8'.
-   - `c` começa em `b + 1` e vai até '9'.
-
-3. **Exibição da combinação**:
-   - `write(1, &a, 1); write(1, &b, 1); write(1, &c, 1);` - Exibimos os três dígitos.
-
-4. **Separador**:
-   - `if (!(a == '7' && b == '8' && c == '9')) write(1, ", ", 2);` - Adicionamos ", " após cada combinação, exceto a última (789).
-
-### Como Testar
-
-```c
-#include <unistd.h>
-
-void	ft_print_comb(void);
-
-int	main(void)
-{
-	ft_print_comb();
-	write(1, "\n", 1);  // Adiciona uma quebra de linha no final
-	return (0);
-}
-```
-
-Saída esperada (parcial):
-```
+**Exemplo de Saída:**
+```text
 012, 013, 014, ..., 789
 ```
 
-### Dicas e Reflexões
+A ideia é construir todas as sequências possíveis sem repetir dígitos e sempre respeitando a ordem crescente.
 
-- Este exercício é significativamente mais complexo que os anteriores.
-- Requer um bom entendimento de loops aninhados.
-- O desafio está em garantir que:
-  - Todos os dígitos sejam diferentes
-  - As combinações estejam em ordem crescente
-  - A formatação da saída esteja correta (com vírgulas e espaços)
-- É normal encontrar dificuldades neste exercício; não desanime!
+### Entendimento do Exercício
 
----
+- Precisamos gerar todas as combinações possíveis de três dígitos onde:
+  - Todos os dígitos são diferentes.
+  - Os números aparecem em ordem crescente.
+  - Separar as combinações com ", ".
+  - Não adicionar a vírgula após a última combinação.
 
-## Conclusão
+### Explicação do Código
 
-Estes cinco exercícios representam uma progressão gradual de complexidade, desde operações simples com caracteres até manipulações mais elaboradas de combinações numéricas. Cada um reforça conceitos fundamentais de programação em C, incluindo:
+```c
+#include <unistd.h>
 
-- Loops e iterações
-- Condicionais
-- Manipulação de caracteres
-- Uso da função `write()`
-- Lógica de programação
+void ft_print_comb(void)
+{
+    char a;
+    char b;
+    char c;
 
-Ao dominar estes exercícios, você estará construindo uma base sólida para desafios mais complexos na Piscine C da Escola 42.
+    a = '0';
+    while (a <= '7')
+    {
+        b = a + 1;
+        while (b <= '8')
+        {
+            c = b + 1;
+            while (c <= '9')
+            {
+                write(1, &a, 1);
+                write(1, &b, 1);
+                write(1, &c, 1);
+                if (!(a == '7' && b == '8' && c == '9'))
+                    write(1, ", ", 2);
+                c++;
+            }
+            b++;
+        }
+        a++;
+    }
+}
+```
+
+#### Como funciona passo a passo:
+
+1. **Definimos três variáveis** (`a`, `b`, `c`) que representam os dígitos.
+2. **Primeiro loop**:
+   - `a` vai de '0' a '7'.
+   - (Se `a` fosse maior que '7', não sobrariam dois números maiores para formar a combinação.)
+3. **Segundo loop**:
+   - `b` começa de `a+1` e vai até '8'.
+   - (Garantindo que `b` é sempre maior que `a`.)
+4. **Terceiro loop**:
+   - `c` começa de `b+1` e vai até '9'.
+   - (Garantindo que `c` é maior que `b`.)
+5. **Escrita dos caracteres**:
+   - Imprimimos `a`, `b` e `c` juntos.
+6. **Separador**:
+   - Se a combinação atual **não** for "789", imprimimos também ", ".
+
+### Exemplo da Saída
+
+```text
+012, 013, 014, 015, 016, 017, 018, 019, 023, 024, 025, ..., 789
+```
+
+### Como testar seu código
+
+```c
+#include <unistd.h>
+
+void ft_print_comb(void);
+
+int main(void)
+{
+    ft_print_comb();
+    write(1, "\n", 1); // Para adicionar quebra de linha no final.
+    return (0);
+}
+```
+
+### Dicas importantes
+
+- Sempre que trabalhar com combinações:
+  - Certifique-se que os dígitos não se repetem.
+  - Certifique-se que a ordem é crescente.
+- No C, os caracteres numéricos ('0', '1', etc.) são tratados como `char`, por isso usamos comparação de caracteres.
+- Atenção para não adicionar ", " após a última combinação.
+
+### Conclusão
+
+Esse exercício é essencial para entender:
+- Como funcionam **loops aninhados**.
+- Como fazer **combinações** de valores.
+- Como **formatar saídas** de forma precisa.
+
+-------------
