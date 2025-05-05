@@ -12,9 +12,9 @@
 
 #include <unistd.h>
 
-void	ft_print_alphabet(void)
+void ft_print_alphabet(void)
 {
-	char	letter;
+	char letter;
 
 	letter = 'a';
 	while (letter <= 'z')
@@ -24,12 +24,11 @@ void	ft_print_alphabet(void)
 	}
 }
 
+void ft_print_alphabet(void);
 
-void	ft_print_alphabet(void);
-
-int	main(void)
+int main(void)
 {
 	ft_print_alphabet();
-	write(1, "\n", 1);  // Adiciona uma quebra de linha no final
+	write(1, "\n", 1); // Adiciona uma quebra de linha no final
 	return (0);
 }
