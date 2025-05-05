@@ -1,45 +1,95 @@
-## Exercício 05: ft_print_comb
+# 📚 Exercício 05: `ft_print_comb` (Explicação Completa para Iniciantes)
 
-### Requisitos
+---
 
-- **Função**: `ft_print_comb`
-- **Arquivo**: `ft_print_comb.c`
-- **Diretório**: `ex05/`
-- **Protótipo**: `void ft_print_comb(void);`
-- **Funções permitidas**: `write`
+## 📌 Requisitos
 
-### Enunciado
+* **Função**: `ft_print_comb`
+* **Arquivo**: `ft_print_comb.c`
+* **Diretório**: `ex05/`
+* **Protótipo**: `void ft_print_comb(void);`
+* **Funções permitidas**: `write`
 
-O objetivo deste exercício é criar uma função que imprima todas as combinações possíveis de três dígitos diferentes, usando apenas os números de 0 a 9. Essas combinações precisam obedecer à seguinte regra:
+---
 
-- Os três dígitos devem estar **em ordem crescente**. Por exemplo:
-  - "123" é válido (1 < 2 < 3).
-  - "321" não é válido (3 > 2).
+## 📝 Enunciado Detalhado
 
-- **Não pode haver repetição** de dígitos:
-  - "112" não é permitido.
-  - Cada dígito na combinação deve ser único.
+O objetivo deste exercício é criar uma função que imprima **todas as combinações possíveis de três dígitos diferentes**, escolhidos de 0 a 9. Porém, essas combinações precisam seguir duas regras:
 
-- Cada combinação impressa deve ser seguida por uma vírgula e um espaço (",") **exceto** depois da última combinação.
+1. **Ordem crescente:** os dígitos devem estar sempre em ordem do menor para o maior. Exemplo: `012` é válido, mas `210` não é.
+2. **Sem repetição de dígitos:** cada dígito deve aparecer **apenas uma vez** na mesma combinação. Exemplo: `112` não é permitido.
 
-- O formato da saída deve ser uma sequência de combinações, como no exemplo abaixo:
+Além disso:
 
-**Exemplo de Saída:**
-```text
+* As combinações devem ser separadas por vírgula e espaço (`, `), **exceto** a última combinação (`789`).
+
+### ✅ Exemplo de saída correta:
+
+```
 012, 013, 014, ..., 789
 ```
 
-A ideia é construir todas as sequências possíveis sem repetir dígitos e sempre respeitando a ordem crescente.
+### ❌ Exemplos que NÃO devem aparecer:
 
-### Entendimento do Exercício
+* `321` (fora de ordem)
+* `999` (dígitos repetidos)
+* `987` (apesar de ser formado pelos mesmos números de `789`, a ordem está errada)
 
-- Precisamos gerar todas as combinações possíveis de três dígitos onde:
-  - Todos os dígitos são diferentes.
-  - Os números aparecem em ordem crescente.
-  - Separar as combinações com ", ".
-  - Não adicionar a vírgula após a última combinação.
+---
 
-### Explicação do Código
+## 🔍 Entendimento do Exercício
+
+Para gerar todas as combinações possíveis:
+
+* Precisamos de **três laços de repetição** (um para cada dígito).
+* Vamos usar os caracteres `'0'` até `'9'` (valores `char`, não `int`).
+* Cada laço precisa garantir que o próximo número **sempre seja maior que o anterior**, evitando repetições e mantendo a ordem.
+
+---
+
+## ⚙️ Estratégia de Solução (Explicação Didática)
+
+1. **Usamos três variáveis:**
+
+   * `a`: representa o primeiro dígito.
+   * `b`: representa o segundo dígito.
+   * `c`: representa o terceiro dígito.
+
+2. **Valores iniciais e limites:**
+
+   * `a` vai de `'0'` até `'7'`.
+
+     * Por quê `'7'`? Porque depois de `'7'`, não há dois números maiores disponíveis.
+   * `b` começa de `a + 1` e vai até `'8'`.
+   * `c` começa de `b + 1` e vai até `'9'`.
+
+3. **Impressão dos dígitos:**
+
+   * Usamos a função `write(1, &a, 1)` para imprimir cada caractere.
+
+4. **Separação entre combinações:**
+
+   * Após imprimir `a`, `b` e `c`, verificamos se essa é a última combinação (`789`).
+   * Se **não** for a última, imprimimos a vírgula e o espaço.
+
+---
+
+## 🧠 Visualizando as combinações
+
+As primeiras combinações válidas:
+
+```
+012, 013, 014, ..., 019,
+023, 024, 025, ..., 029,
+...
+789
+```
+
+Cada número é único e está em ordem crescente.
+
+---
+
+## 🧑‍💻 Código Completo com Explicação
 
 ```c
 #include <unistd.h>
@@ -73,30 +123,19 @@ void ft_print_comb(void)
 }
 ```
 
-#### Como funciona passo a passo:
+---
 
-1. **Definimos três variáveis** (`a`, `b`, `c`) que representam os dígitos.
-2. **Primeiro loop**:
-   - `a` vai de '0' a '7'.
-   - (Se `a` fosse maior que '7', não sobrariam dois números maiores para formar a combinação.)
-3. **Segundo loop**:
-   - `b` começa de `a+1` e vai até '8'.
-   - (Garantindo que `b` é sempre maior que `a`.)
-4. **Terceiro loop**:
-   - `c` começa de `b+1` e vai até '9'.
-   - (Garantindo que `c` é maior que `b`.)
-5. **Escrita dos caracteres**:
-   - Imprimimos `a`, `b` e `c` juntos.
-6. **Separador**:
-   - Se a combinação atual **não** for "789", imprimimos também ", ".
+## 🔬 Explicando passo a passo
 
-### Exemplo da Saída
+1. `a = '0'` → começa com o menor valor possível.
+2. `b = a + 1` → o próximo número tem que ser sempre maior.
+3. `c = b + 1` → mesma lógica: sempre valores únicos e em ordem crescente.
+4. `write` imprime os três caracteres.
+5. `if (!(a == '7' && b == '8' && c == '9'))` → garante que não será impresso ", " após a última combinação.
 
-```text
-012, 013, 014, 015, 016, 017, 018, 019, 023, 024, 025, ..., 789
-```
+---
 
-### Como testar seu código
+## 🧪 Como testar seu código
 
 ```c
 #include <unistd.h>
@@ -106,24 +145,30 @@ void ft_print_comb(void);
 int main(void)
 {
     ft_print_comb();
-    write(1, "\n", 1); // Para adicionar quebra de linha no final.
+    write(1, "\n", 1);
     return (0);
 }
 ```
 
-### Dicas importantes
+---
 
-- Sempre que trabalhar com combinações:
-  - Certifique-se que os dígitos não se repetem.
-  - Certifique-se que a ordem é crescente.
-- No C, os caracteres numéricos ('0', '1', etc.) são tratados como `char`, por isso usamos comparação de caracteres.
-- Atenção para não adicionar ", " após a última combinação.
+## ⚠️ Dicas Importantes
 
-### Conclusão
+* No C, os números como `'0'`, `'1'` etc. são caracteres (`char`), e não inteiros.
+* Você pode fazer contas com caracteres, porque `'0' + 1` é igual a `'1'`.
+* Sempre use `!=` ou `==` com cuidado, pois estamos comparando letras/dígitos e não valores numéricos reais.
+* Preste atenção à **última combinação** para não imprimir a vírgula depois dela.
 
-Esse exercício é essencial para entender:
-- Como funcionam **loops aninhados**.
-- Como fazer **combinações** de valores.
-- Como **formatar saídas** de forma precisa.
+---
 
--------------
+## ✅ Conclusão
+
+Esse exercício ajuda a entender:
+
+* Laços aninhados (um dentro do outro)
+* Como construir combinações únicas
+* Como manipular caracteres e trabalhar com formatação precisa
+
+Se você dominar esse exercício, estará preparado para desafios que envolvem lógica de repetição e controle de saída na tela.
+
+Bons estudos, meu rei! 🚀😉
