@@ -1,0 +1,5 @@
+p1 - fila e pilha
+
+p2 - semelhante e deque
+
+p3 - lista circular - encadeada - arvore
