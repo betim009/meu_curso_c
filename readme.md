@@ -1,88 +1,82 @@
-# Capítulo 1: Fundamentos da Linguagem C
+# Apostila de Programação em C
 
-## 🔥 Introdução
-
-C é uma linguagem de programação de **baixo nível**, muito utilizada para sistemas operacionais, embarcados, jogos e sistemas que exigem alto desempenho. Ela é **compilada**, ou seja, precisa ser transformada em código de máquina antes de rodar.
+## Sumário
+- [Introdução à Linguagem C](#introducao)
+- [Variáveis e Tipos de Dados](#variaveis)
+- [Entrada e Saída de Dados](#entrada-saida)
+- [Operadores](#operadores)
+- [Estruturas de Controle](#controle)
+- [Funções](#funcoes)
+- [Arrays](#arrays)
+- [Strings](#strings)
+- [Ponteiros](#ponteiros)
+- [Constantes](#constantes)
+- [Structs](#structs)
+- [Exercícios Práticos](#exercicios)
+- [Dicas e Comparações](#dicas)
 
 ---
 
-## ✅ Estrutura Básica de um Programa em C
+## <a name="introducao"></a>Introdução à Linguagem C
+C é uma linguagem de programação de baixo nível, muito utilizada para sistemas operacionais, embarcados, jogos e sistemas que exigem alto desempenho. Ela é compilada, ou seja, precisa ser transformada em código de máquina antes de rodar.
 
+Exemplo mínimo:
 ```c
 #include <stdio.h>
-
 int main() {
     printf("Hello, World!\n");
     return 0;
 }
 ```
 
-- `#include <stdio.h>`: importa biblioteca padrão de entrada e saída.
-- `main()`: ponto de entrada do programa.
-- `printf()`: imprime na tela.
-- `return 0;`: indica fim do programa com sucesso.
-
 ---
 
-## ⚖️ Tipos de Dados e Variáveis
+## <a name="variaveis"></a>Variáveis e Tipos de Dados
+- Em C, você precisa declarar o tipo da variável: `int`, `float`, `char`, `double`, `char[]` (string).
+- O ponto e vírgula `;` é sempre obrigatório.
 
+Exemplo:
 ```c
-int idade = 25;
+int idade = 30;
 float altura = 1.75;
-double peso = 70.5;
-char letra = 'A';
-```
-
-- `%d`: int
-- `%f`: float
-- `%lf`: double
-- `%c`: char
-
-```c
-printf("Idade: %d\n", idade);
+char letra = 'Z';
+char nome[20] = "Alberto";
 ```
 
 ---
 
-## ✉️ Entrada de Dados com `scanf`
+## <a name="entrada-saida"></a>Entrada e Saída de Dados
+- Use `printf` para exibir dados.
+- Use `scanf` para ler dados do usuário.
 
+Exemplo:
 ```c
-int idade;
-printf("Digite sua idade: ");
-scanf("%d", &idade);
-printf("Idade digitada: %d\n", idade);
+#include <stdio.h>
+int main() {
+    int idade;
+    printf("Digite sua idade: ");
+    scanf("%d", &idade);
+    printf("Idade digitada: %d\n", idade);
+    return 0;
+}
 ```
 
-- Sempre usar `&` antes da variável no `scanf`.
-
----
-
-## ⚡️ Operadores
-
-### Aritméticos
-
+Para ler strings/frases completas:
 ```c
-+, -, *, /, %
-```
-
-### Relacionais
-
-```c
-==, !=, >, <, >=, <=
-```
-
-### Lógicos
-
-```c
-&& (E), || (OU), ! (NÃO)
+fgets(nome, sizeof(nome), stdin);
 ```
 
 ---
 
-## Condicionais
+## <a name="operadores"></a>Operadores
+- Aritméticos: `+`, `-`, `*`, `/`, `%`
+- Relacionais: `==`, `!=`, `>`, `<`, `>=`, `<=`
+- Lógicos: `&&`, `||`, `!`
 
-### `if`, `else if`, `else`
+---
 
+## <a name="controle"></a>Estruturas de Controle
+### Condicionais
 ```c
 if (idade >= 18) {
     printf("Maior de idade\n");
@@ -91,8 +85,7 @@ if (idade >= 18) {
 }
 ```
 
-### `switch`
-
+### Switch
 ```c
 int opcao = 2;
 switch (opcao) {
@@ -107,42 +100,23 @@ switch (opcao) {
 }
 ```
 
----
-
-## ♻️ Repetições
-
-### `for`
-
+### Repetição
 ```c
 for (int i = 0; i < 5; i++) {
     printf("i = %d\n", i);
 }
 ```
 
-### `while`
-
-```c
-int i = 0;
-while (i < 5) {
-    printf("i = %d\n", i);
-    i++;
-}
-```
-
 ---
 
-## ⚙️ Funções
-
+## <a name="funcoes"></a>Funções
 ### Sem retorno
-
 ```c
 void saudacao() {
     printf("Bem-vindo!\n");
 }
 ```
-
 ### Com retorno
-
 ```c
 int soma(int a, int b) {
     return a + b;
@@ -151,421 +125,151 @@ int soma(int a, int b) {
 
 ---
 
-## 📂 Arrays
-
-### Array de inteiros
-
+## <a name="arrays"></a>Arrays
 ```c
 int numeros[5] = {1, 2, 3, 4, 5};
 ```
-
-### Array 2D (matriz)
-
+Percorra com for:
 ```c
-int matriz[2][2] = {{1, 2}, {3, 4}};
+for (int i = 0; i < 5; i++) {
+    printf("%d\n", numeros[i]);
+}
 ```
 
 ---
 
-## 🔎 Strings
-
+## <a name="strings"></a>Strings
 ```c
 char nome[20];
 printf("Digite seu nome: ");
 scanf("%s", nome);
 printf("Olá, %s!\n", nome);
 ```
-
-- Para ler frases completas, use:
-
+Para frases completas:
 ```c
 fgets(nome, 20, stdin);
 ```
 
 ---
 
-## 🤍 Ponteiros
+## <a name="ponteiros"></a>Ponteiros
+- Ponteiro é uma variável que guarda o endereço de outra variável.
+- Use `*` para declarar e acessar o valor apontado.
 
+Exemplo básico:
 ```c
-int x = 10;
-int *p = &x;
-printf("Valor de x: %d\n", *p);
+int idade = 25;
+int *p = &idade;
+printf("Valor da idade: %d\n", idade);
+printf("Endereço de idade: %p\n", (void*)&idade);
+printf("Valor via ponteiro: %d\n", *p);
+printf("Endereço guardado em p: %p\n", (void*)p);
 ```
 
-- `*p`: acessa valor apontado
-- `&x`: pega endereço de x
+### Passando endereço para função
+```c
+void dobrar(int *num) {
+    *num = *num * 2;
+}
+int main() {
+    int valor = 7;
+    dobrar(&valor);
+    printf("Valor dobrado: %d\n", valor); // 14
+    return 0;
+}
+```
+
+### Quando usar ponteiros?
+- Para alterar uma variável fora da função
+- Evitar copiar dados grandes
+- Trabalhar com alocação dinâmica
+- Manipular arrays, strings ou structs
 
 ---
 
-## 📚 Structs (Registros)
+## <a name="constantes"></a>Constantes
+```c
+#define PI 3.14
+const int ANO = 2025;
+```
+- `#define` substitui texto (pré-processador)
+- `const` impede alteração do valor
 
+---
+
+## <a name="structs"></a>Structs
 ```c
 struct Pessoa {
     char nome[50];
     int idade;
 };
-
 struct Pessoa p1 = {"Ana", 30};
 printf("%s tem %d anos\n", p1.nome, p1.idade);
 ```
 
 ---
 
-## 📌 Comentários
-
-- Comentário de linha:
-
-```c
-// Isso é um comentário
-```
-
-- Comentário de bloco:
-
-```c
-/* Comentário
-   em várias linhas */
-```
-
----
-
-## 🔢 Exercícios Práticos
-
-1. Crie um programa que leia dois números e mostre a soma.
-2. Crie um programa que leia o nome e a idade e imprima-os.
-3. Crie uma função que receba dois inteiros e retorne a média.
-4. Crie um programa que leia 5 notas e calcule a média.
-
----
-
-
-### 2️⃣ Estrutura Básica de um Programa em C
-```c
-#include <stdio.h>  // Biblioteca padrão para entrada e saída
-
-int main() {  // Ponto de entrada do programa
-    printf("Hello, world!\n");  // Imprime na tela
-    return 0;  // Indica que o programa rodou sem erros
-}
-```
-
-📌 O `#include <stdio.h>` importa uma biblioteca para lidar com entrada/saída.  
-📌 `main()` é a função principal, **todo programa em C começa nela**.  
-📌 `printf()` é usado para imprimir coisas na tela.  
-📌 `\n` quebra a linha.
-
-🛠 **Compilação e execução:**  
-Se estiver no Linux/macOS, compile com `gcc`:
-```sh
-gcc programa.c -o programa
-./programa
-```
-No Windows, use o **MinGW** ou rode no **WSL**.
-
----- 
-
-### 3️⃣ Variáveis e Tipos de Dados
+## <a name="exercicios"></a>Exercícios Práticos
+### 1. Encontrar o maior número em um array
 ```c
 #include <stdio.h>
-
 int main() {
-    int idade = 25;
-    float altura = 1.75;
-    double peso = 70.5;
-    char inicial = 'A';
-
-    printf("Idade: %d anos\n", idade);
-    printf("Altura: %.2f metros\n", altura);
-    printf("Peso: %.1lf kg\n", peso);
-    printf("Inicial do nome: %c\n", inicial);
-
-    return 0;
-}
-```
-
-📌 `%d` para **inteiro**, `%f` para **float**, `%lf` para **double**, `%c` para **char**.  
-📌 **Float e double precisam de `.` para números decimais.**  
-📌 `char` usa **aspas simples ('A')**, strings usam **aspas duplas ("Hello")**.
-
----
-
-### 4️⃣ Entrada de Dados (`scanf`)
-```c
-#include <stdio.h>
-
-int main() {
-    int idade;
-    printf("Digite sua idade: ");
-    scanf("%d", &idade);
-    printf("Sua idade é %d anos.\n", idade);
-    return 0;
-}
-```
-
-📌 `scanf("%d", &idade);` lê um **inteiro** do usuário.  
-📌 **Atenção:** O `&` antes da variável é obrigatório!
-
----
-
-### 5️⃣ Condicionais (`if`, `else`)
-```c
-#include <stdio.h>
-
-int main() {
-    int idade;
-    printf("Digite sua idade: ");
-    scanf("%d", &idade);
-
-    if (idade >= 18) {
-        printf("Você é maior de idade.\n");
-    } else {
-        printf("Você é menor de idade.\n");
+    int array[5] = {7, 3, 12, 5, 9};
+    int maior = array[0];
+    for (int i = 1; i < 5; i++) {
+        if (array[i] > maior) {
+            maior = array[i];
+        }
     }
-
+    printf("Maior número: %d\n", maior);
     return 0;
 }
 ```
 
----
-
-### 6️⃣ Laços de Repetição (`for`, `while`)
-
-#### 🔹 `for` (contador)
+### 2. Função para encontrar o maior número
 ```c
-#include <stdio.h>
-
-int main() {
-    for (int i = 1; i <= 5; i++) {
-        printf("Número %d\n", i);
+int encontrarMaior(int array[], int tamanho) {
+    int maior = array[0];
+    for (int i = 1; i < tamanho; i++) {
+        if (array[i] > maior) {
+            maior = array[i];
+        }
     }
-    return 0;
+    return maior;
 }
 ```
 
-#### 🔹 `while`
+### 3. Trocar valores usando ponteiros
 ```c
-#include <stdio.h>
+void trocar(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+```
 
-int main() {
-    int numero = 1;
-    while (numero <= 5) {
-        printf("Número %d\n", numero);
-        numero++;
-    }
-    return 0;
+### 4. Dobrar valor usando ponteiro
+```c
+void dobrar(int *p) {
+    *p = *p * 2;
+}
+```
+
+### 5. Exibir dados usando ponteiros
+```c
+void exibindo(const char *pNome, int *pIdade) {
+    printf("%s tem %d anos de idade.\n", pNome, *pIdade);
 }
 ```
 
 ---
 
-### 7️⃣ Funções
-
-#### 🔹 Sem retorno (`void`)
-```c
-#include <stdio.h>
-
-void saudacao() {
-    printf("Olá, bem-vindo!\n");
-}
-
-int main() {
-    saudacao();
-    return 0;
-}
-```
-
-#### 🔹 Com retorno
-```c
-#include <stdio.h>
-
-int soma(int a, int b) {
-    return a + b;
-}
-
-int main() {
-    int resultado = soma(3, 4);
-    printf("Resultado: %d\n", resultado);
-    return 0;
-}
-```
+## <a name="dicas"></a>Dicas e Comparações
+- Use ponteiros para modificar valores fora da função.
+- Prefira `const` para valores que não devem ser alterados.
+- Arrays e strings são passados como ponteiros para funções.
+- Em C, tudo que envolve manipulação direta de memória é feito com ponteiros.
+- Para quem vem de JavaScript: C exige declaração de tipo, uso de ponteiros e manipulação manual de memória.
 
 ---
 
-### 8️⃣ Strings em C (Array de `char`)
-```c
-#include <stdio.h>
-
-int main() {
-    char nome[20];
-    printf("Digite seu nome: ");
-    scanf("%s", nome);
-    printf("Olá, %s!\n", nome);
-    return 0;
-}
-```
-
-#### Para ler frases completas:
-```c
-fgets(nome, 20, stdin);
-```
-
----
-
-### 9️⃣ Ponteiros
-```c
-#include <stdio.h>
-
-int main() {
-    int numero = 10;
-    int *ptr = &numero;
-
-    printf("Valor de numero: %d\n", numero);
-    printf("Endereço de numero: %p\n", &numero);
-    printf("Valor armazenado em ptr: %p\n", ptr);
-    printf("Valor apontado por ptr: %d\n", *ptr);
-
-    return 0;
-}
-```
-
-
-# Aprendendo C com Comparações em JavaScript
-
-Este guia foi feito para quem já domina JavaScript e quer aprender a linguagem C de forma simples, prática e comparativa.
-
----
-
-## 1. Hello World
-
-### JavaScript:
-```js
-function hello(name) {
-  return `Hello ${name}`;
-}
-
-console.log(hello("Alberto"));
-```
-
-### C:
-```c
-#include <stdio.h>
-
-void hello(const char *name) {
-    printf("Hello %s\n", name);
-}
-
-int main() {
-    hello("Alberto");
-    return 0;
-}
-```
-
----
-
-# Introdução a Strings em C
-
-## 1. Variáveis em C
-
-Diferente de JavaScript, onde não precisamos declarar o tipo das variáveis, em C é necessário especificar o tipo.
-
-### Exemplo de variáveis em C:
-
-```c
-int numero = 10;    // Número inteiro
-float altura = 1.75; // Número decimal
-char letra = 'A';   // Um caractere único
-```
-
-## 2. Strings em C
-
-Em JavaScript, strings são tipos nativos, mas em C, strings são **arrays de caracteres**.
-
-### Exemplo de string em C:
-
-```c
-char nome[50] = "Alberto";  // String com até 50 caracteres
-```
-
-Isso cria um array de caracteres onde cada letra é armazenada separadamente na memória.
-
-### Representação interna:
-
-```c
-char nome[] = {'A', 'l', 'b', 'e', 'r', 't', 'o', '\0'};
-```
-
-O `\0` indica o final da string.
-
-## 3. `%s` para Manipulação de Strings
-
-O **`%s`** é um especificador de formato usado em funções como `printf()` e `scanf()` para manipular strings.
-
-### Exemplo de Impressão de String:
-
-```c
-#include <stdio.h>
-
-int main() {
-    char nome[] = "Alberto";
-    printf("Olá, %s!\n", nome);  // %s substitui "Alberto"
-    return 0;
-}
-```
-
-**Saída:**
-
-```
-Olá, Alberto!
-```
-
-### Exemplo de Leitura de String com `scanf()`:
-
-```c
-#include <stdio.h>
-
-int main() {
-    char nome[50];
-    printf("Digite seu nome: ");
-    scanf("%49s", nome);  // Lê a string
-    printf("Olá, %s!\n", nome);
-    return 0;
-}
-```
-
-⚠️ **Limitação**: `scanf("%s")`**só lê até o primeiro espaço**! Para ler nomes completos, use `fgets()`:
-
-```c
-fgets(nome, 50, stdin);
-```
-
-## 4. Retornando Strings de Funções
-
-Como strings são arrays, não podemos simplesmente retorná-las como fazemos em JavaScript. Podemos usar um **buffer estático**:
-
-```c
-#include <stdio.h>
-#include <string.h>
-
-char* hello(const char *name) {
-    static char result[100];  // Buffer estático
-    snprintf(result, sizeof(result), "Hello %s", name);
-    return result;
-}
-
-int main() {
-    char name[50];
-    printf("Digite seu nome: ");
-    scanf("%49s", name);
-
-    printf("%s\n", hello(name));
-    return 0;
-}
-```
-
-## 5. Resumo Rápido
-
-* **`%s`** → Usado no `printf()` e `scanf()` para strings.
-* **Strings em C** → Arrays de `char`, terminados com `\0`.
-* **`scanf("%s")`** → Não lê espaços; use `fgets()` para isso.
-* **Retornando Strings** → Use um **buffer estático** ou aloque memória dinamicamente.
-
----

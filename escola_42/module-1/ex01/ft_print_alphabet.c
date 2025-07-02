@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_numbers.c                                 :+:      :+:    :+:   */
+/*   ft_print_alphabet.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: student <student@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/27 11:00:00 by student           #+#    #+#             */
-/*   Updated: 2025/04/27 11:00:00 by student           ###   ########.fr       */
+/*   Created: 2025/04/27 10:00:00 by student           #+#    #+#             */
+/*   Updated: 2025/04/27 10:00:00 by student           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_print_numbers(void)
+void ft_print_alphabet(void)
 {
-	char	digit;
+	char letter;
 
-	digit = '0';
-	while (digit <= '9')
+	letter = 'a';
+	while (letter <= 'z')
 	{
-		write(1, &digit, 1);
-		digit++;
+		write(1, &letter, 1);
+		letter++;
 	}
 }
 
-void	ft_print_numbers(void);
-
-int	main(void)
+int main(void)
 {
-	ft_print_numbers();
-	write(1, "\n", 1);  // Adiciona uma quebra de linha no final
+	ft_print_alphabet();
+	write(1, "\n", 1); // Adiciona uma quebra de linha no final
 	return (0);
 }
