@@ -109,6 +109,23 @@ void ft_print_case_switch(void) {
     }
 }
 
+
+## outra solucao
+void ft_print_case_switch(void) {
+    char letter = 'a';
+
+    while (letter <= 'f') {
+        // Se a letra for par (baseando em posição), imprime minúscula
+        if ((letter - 'a') % 2 == 0) {
+            write(1, &letter, 1);
+        } else {
+            char upper = letter - 32; // transforma em maiúscula
+            write(1, &upper, 1);
+        }
+        letter++;
+    }
+}
+
 int main() {
     ft_print_case_switch();
     write(1, "\n", 1);
