@@ -31,6 +31,13 @@ int main() {
 
 ---
 
+
+```bash
+gcc arquivo.c -o nome_do_executavel
+
+./nome_do_executavel
+```
+
 ## <a name="variaveis"></a>Variáveis e Tipos de Dados
 - Em C, você precisa declarar o tipo da variável: `int`, `float`, `char`, `double`, `char[]` (string).
 - O ponto e vírgula `;` é sempre obrigatório.
